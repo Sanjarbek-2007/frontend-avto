@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import config from "../../../config";
 
 const ApplicationPage = () => {
     // Extract the postId from the URL
     const { id } = useParams();
-
     // Initialize formData with the postId
     const [formData, setFormData] = useState({
         fullName: '',
@@ -22,7 +22,7 @@ const ApplicationPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:8080/apps/add', {
+            const response = await fetch(`${config.apiUrl}/apps/add`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

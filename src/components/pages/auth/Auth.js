@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
 import './Auth.css';
-
+import config from "../../../config";
 const Auth = ({ onAuth }) => {
     const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
-
     const handleSwitchMode = () => {
         setIsLogin(prevState => !prevState);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const url = isLogin ? 'http://localhost:8080/auth/login' : 'http://localhost:8080/auth/signup';
+        const url = isLogin ? `${config.apiUrl}/auth/login` : `${config.apiUrl}/auth/signup`;
         const data = isLogin ? { email, password } : { email, phoneNumber, password, username };
 
         try {

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './Applications.css';
 import { Link } from 'react-router-dom';
+import config from "../../../config";
 
 const Applications = () => {
     const [applications, setApplications] = useState([]);
-
     useEffect(() => {
-        fetch('http://localhost:8080/apps')
+        fetch(`${config.apiUrl}/apps`)
             .then(response => response.json())
             .then(data => {
                 const sortedApplications = data.sort((a, b) => {
@@ -22,7 +22,7 @@ const Applications = () => {
     }, []);
 
     const handleAccept = (id) => {
-        fetch(`http://localhost:8080/apps/${id}/accept`, {
+        fetch(`${config.apiUrl}/apps/${id}/accept`, {
             method: 'PUT'
         })
             .then(response => {
@@ -43,7 +43,7 @@ const Applications = () => {
     };
 
     const handleClosed = (id) => {
-        fetch(`http://localhost:8080/apps/${id}/close`, {
+        fetch(`${config.apiUrl}/apps/${id}/close`, {
             method: 'PUT'
         })
             .then(response => {
@@ -69,7 +69,7 @@ const Applications = () => {
         <div className="applications-container">
             {applications.map(application => {
                 const {id, post, isAccepted, post: {isActive}} = application;
-                const photoUrl = `http://localhost:8080/images/${post.id}`;
+                const photoUrl = `${config.apiUrl}/images/${post.id}`;
 
                 let className = 'application-card';
                 if (isAccepted) {

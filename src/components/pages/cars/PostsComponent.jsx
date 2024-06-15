@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './PostsComponent.css';
-
+import config from "../../../config";
 const PostsComponent = () => {
     const [posts, setPosts] = useState([]);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [role, setRole] = useState('');
-
     useEffect(() => {
         // Fetch posts
-        fetch('http://localhost:8080/posts')
+        fetch(`${config.apiUrl}/posts`)
             .then(response => response.json())
             .then(data => setPosts(data))
             .catch(error => console.error('Error fetching posts:', error));
@@ -32,7 +31,7 @@ const PostsComponent = () => {
     };
 
     const handleDeletePost = (postId) => {
-        fetch(`http://localhost:8080/posts/delete/${postId}`, {
+        fetch(`${config.apiUrl}/posts/delete/${postId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -56,7 +55,7 @@ const PostsComponent = () => {
             {posts.map(post => (
                 <div className="post-card image-container" key={post.id}>
                     <h2>{post.title}</h2>
-                    <img src={`http://localhost:8080/images/${post.id}`} alt={post.fileName} title={post.title} />
+                    <img src={`${config.apiUrl}/images/${post.id}`} alt={post.fileName} title={post.title} />
                     <p><strong>Car Brand:</strong> {post.carBrand}</p>
                     <p><strong>Car Model:</strong> {post.carModel}</p>
                     <p><strong>Credit Months:</strong> {post.creditMonthCount}</p>

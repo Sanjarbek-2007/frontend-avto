@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import {Link, useParams} from 'react-router-dom';
 import './PostDetailComponent.css';
-
+import config from "../../../config";
 const PostDetailComponent = () => {
     const { id } = useParams();
     const [post, setPost] = useState(null);
     const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
-
     useEffect(() => {
         // Fetch post details
-        fetch(`http://localhost:8080/posts/${id}`)
+        fetch(`${config.apiUrl}/posts/${id}`)
             .then(response => response.json())
             .then(data => setPost(data))
             .catch(error => console.error('Error fetching post:', error));
@@ -35,7 +34,7 @@ const PostDetailComponent = () => {
                     <div className="carousel">
                         <button className="carousel-button" onClick={handlePrevPhoto}>&#10094;</button>
                         <img
-                            src={`http://localhost:8080/images/${post.photoIds[currentPhotoIndex]}/one`}
+                            src={`${config.apiUrl}/images/${post.photoIds[currentPhotoIndex]}/one`}
                             alt={`Photo ${currentPhotoIndex + 1}`}
                             className="post-photo"
                         />

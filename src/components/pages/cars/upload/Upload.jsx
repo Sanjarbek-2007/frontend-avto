@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Upload.css';
+import config from "../../../../config";
 
 const Upload = () => {
     const [formData, setFormData] = useState({
@@ -48,7 +49,7 @@ const Upload = () => {
             //     throw new Error('No JWT token found');
             // }
 
-            const response = await fetch('http://localhost:8080/posts/add', {
+            const response = await fetch(`${config.apiUrl}/posts/add`, {
                 method: 'POST',
                 // headers: {
                 //     'Authorization': `Bearer ${token}` ,// Include this if authentication is required
@@ -122,7 +123,7 @@ const Upload = () => {
                 {renderInput('creditMonthCount', 'Kredit Muddati (oy)', 'number')}
                 {renderInput('amount', 'Summasi (SUM)', 'number')}
                 {renderInput('procents', 'Foizlar (%)', 'number')}
-                {renderInput('firstlyDeposit', 'Dastlabki To\'lov', 'number')}
+                {/*{renderInput('firstlyDeposit', 'Dastlabki To\'lov', 'number')}*/}
                 <button onClick={handleSubmit}>Mashinani Yuklash</button>
             </form>
         </div>
